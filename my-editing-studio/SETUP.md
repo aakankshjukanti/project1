@@ -15,7 +15,16 @@ partners-intro video code. It does not hold installed packages, speech models, o
 4. First transcription downloads the speech models into `.models/` (about 0.5 GB for Whisper "small"
    plus the alignment model). The machine needs access to huggingface.co, its xet/cdn download
    hosts, and download.pytorch.org.
-5. Footage: put clips in `assets/projects/<name>/footage/`. Phone HDR (HLG, BT.2020) clips must be
+5. NLTK sentence data, needed once (its own downloader can refuse to run behind a proxy, so fetch it directly):
+   ```
+   mkdir -p ~/nltk_data/tokenizers
+   curl -sSL -o punkt_tab.zip https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/packages/tokenizers/punkt_tab.zip
+   unzip punkt_tab.zip -d ~/nltk_data/tokenizers
+   ```
+   If the alignment model download ends with "failed finding central directory", the file was cut
+   short: compare its size with the server's content-length, and resume with `curl -C -`.
+6. Check it all with: `.venv/bin/python scripts/transcribe.py <any-clip> --language en`
+7. Footage: put clips in `assets/projects/<name>/footage/`. Phone HDR (HLG, BT.2020) clips must be
    tone-mapped to SDR first, or they look washed out. See `src/videos/partners-intro/beats.ts`.
 
 The studio's MCP server (creator-editing-os) is added separately with `claude mcp add`; its access
