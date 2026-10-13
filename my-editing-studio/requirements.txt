@@ -1,0 +1,23 @@
+# The Python half of the studio: transcription, word alignment, cut detection,
+# green-screen cutouts and colour grading.
+#
+#   python -m venv .venv
+#   .venv/bin/pip install -r requirements.txt        (Windows: .venv\Scripts\pip)
+#
+# Python 3.11 or 3.12. Not 3.13+ — WhisperX's dependencies do not support it yet, and the
+# failure is a wall of build errors rather than a clear message.
+#
+# certifi is not optional on macOS: torch downloads the alignment model with urllib, which
+# on a python.org build has no root certificates at all.
+
+whisperx==3.8.6
+# BiRefNet, for cutting the subject out of ordinary footage so text can sit behind them.
+# MIT licensed and self-hosted: nothing uploads, and there is no per-video cost.
+transformers>=4.44
+timm>=1.0
+einops>=0.8
+kornia>=0.7
+torch>=2.2
+numpy>=1.26
+Pillow>=10.0
+certifi>=2024.2.2

@@ -1,0 +1,7 @@
+node_modules/
+.venv/
+.models/
+out/
+work/
+assets/projects/*/footage/
+assets/projects/*/audio/
